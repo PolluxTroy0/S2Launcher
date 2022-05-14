@@ -1,6 +1,9 @@
 ## Sacred 2 Launcher
 A custom game/server launcher for Sacred 2
 
+## Download
+https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/
+
 ## Screenshots
  - Game Launcher  
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Launcher.png)
