@@ -1,13 +1,13 @@
-## SACRED 2 LAUNCHER
+## Sacred 2 Launcher
 A custom game/server launcher for Sacred 2
 
-## SCREENSHOTS
+## Screenshots
  - Game Launcher  
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Launcher.png)
  - Server Launcher  
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Server.png)
 
-## MAIN FEATURES
+## Main Features
  - Automatic savegames backup : The launcher can create backup of savegames when you stop playing the game.
 
  - Manual savegames backup : You can manually create a savegames backup.
@@ -18,13 +18,13 @@ A custom game/server launcher for Sacred 2
 
  - Include Sacred 2 Server Launcher : Allow you to start a lobby server and a game server for LAN/Online play.
 
-## INSTALLATION
+## Installation
 Copy S2Launcher.exe to the root of Sacred 2 game folder.
 
-## CONFIGURATION FILE
+## Configuration File
 All settings are stored in S2Launcher.ini file next to the launcher executable.
 
-## CREDITS
+## Credits
 - Sacred 2 Launcher
   - Author : PolluxTroy (Discord: Pollux Troy#0231)  
   - Sources : https://github.com/PolluxTroy0/S2Launcher
@@ -40,6 +40,3 @@ All settings are stored in S2Launcher.ini file next to the launcher executable.
 - JSGME Mods Manager
    - Author : Jesen Jones
    - Sources : http://www.users.on.net/~jscones/software
-
-## VESRIONS HISTORY
- - 14/05/2022 - Initial Release
