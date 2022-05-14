@@ -1,9 +1,13 @@
+## SACRED 2 LAUNCHER
+A custom game/server launcher for Sacred 2
+
+## SCREENSHOTS
+ - Game Launcher
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Launcher.png)
+ - Server Launcher
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Server.png)
 
-## SACRED 2 LAUNCHER
-A custom game/server launcher for Sacred 2 with the following features :
-
+## MAIN FEATURES
  - Automatic savegames backup : The launcher can create backup of savegames when you stop playing the game.
 
  - Manual savegames backup : You can manually create a savegames backup.
