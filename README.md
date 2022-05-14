@@ -2,9 +2,9 @@
 A custom game/server launcher for Sacred 2
 
 ## SCREENSHOTS
- - Game Launcher
+ - Game Launcher  
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Launcher.png)
- - Server Launcher
+ - Server Launcher  
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Server.png)
 
 ## MAIN FEATURES
