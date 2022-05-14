@@ -31,7 +31,7 @@ All settings are stored in S2Launcher.ini file next to the launcher executable.
 
 - Sacred 2 Server Launcher
    - Author : PolluxTroy (Discord: Pollux Troy#0231)  
-   - Sources : https://github.com/PolluxTroy0/S2Server
+   - Sources : https://github.com/PolluxTroy0/S2Launcher
 
 - Sacred 2 Lobby Emulator
   - Author : pnxr
