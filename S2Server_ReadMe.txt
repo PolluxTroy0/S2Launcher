@@ -30,6 +30,12 @@
    https://www.microsoft.com/fr-fr/download/details.aspx?id=49982
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
+║ ► INSTALLATION                                                                    ◄ ║
+╚═════════════════════════════════════════════════════════════════════════════════════╝
+ ● Copy S2Server.exe to the root of Sacred 2 game folder.
+   Required files will be extracted at first launch in S2Server folder.
+
+╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► NETWORK REQUIREMENTS                                                            ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● Port forwarding to server host IP (on your router) :
@@ -46,12 +52,6 @@
 
  ● Allow the game client, lobby server and game server into your firewall.
    You can use S2Firewall.cmd to do it easily, located in S2Server folder.
-
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► INSTALLATION                                                                    ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
- ● Copy S2Server.exe to the root of Sacred 2 game folder.
-   Required files will be extracted at first launch in S2Server folder.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► USAGE                                                                           ◄ ║
