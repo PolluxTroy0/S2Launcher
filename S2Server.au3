@@ -1,11 +1,13 @@
 #AutoIt3Wrapper_Icon=sacred2.ico
+#AutoIt3Wrapper_Outfile=S2Server.exe
+#AutoIt3Wrapper_OutFile_Type=exe
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Sacred 2 Server Launcher
+#AutoIt3Wrapper_Res_ProductName=Sacred 2 Server Launcher
 #AutoIt3Wrapper_Res_ProductVersion=1.0.0.0
 #AutoIt3Wrapper_Res_Fileversion=1.0.0.0
 #AutoIt3Wrapper_Res_CompanyName=PolluxTroy (Discord: Pollux Troy#0231)
 #AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy (Discord: Pollux Troy#0231)
-#AutoIt3Wrapper_Res_ProductName=Sacred 2 Server Launcher
 
 #include <ButtonConstants.au3>
 #include <ComboConstants.au3>

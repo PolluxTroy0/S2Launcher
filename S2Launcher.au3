@@ -3,9 +3,11 @@
 #AutoIt3Wrapper_OutFile_Type=exe
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Sacred 2 Launcher
-#AutoIt3Wrapper_Res_ProductVersion=1.0.0.5
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.5
 #AutoIt3Wrapper_Res_ProductName=Sacred 2 Launcher
+#AutoIt3Wrapper_Res_ProductVersion=1.0.1.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
+#AutoIt3Wrapper_Res_CompanyName=PolluxTroy (Discord: Pollux Troy#0231)
+#AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy (Discord: Pollux Troy#0231)
 
 #include <ButtonConstants.au3>
 #include <GUIConstantsEx.au3>
@@ -20,12 +22,14 @@
 #include <File.au3>
 #include <String.au3>
 #include <TrayConstants.au3>
+#include <InetConstants.au3>
 
 Opt("TrayAutoPause", 0)
 Opt("TrayIconHide", 0)
 Opt("TrayMenuMode", 3)
 
 $appversion = FileGetVersion(@ScriptFullPath, $FV_FILEVERSION)
+$appname = ""
 
 ;Check update
 _Update()
@@ -405,53 +409,57 @@ Func _Save()
 EndFunc
 
 Func _Update()
-	If @OSVersion == "WIN_10" Or @OSVersion == "WIN_11" Then
-		$url = "https://api.github.com/repos/PolluxTroy0/S2Launcher/releases/latest"
-		$file = @ScriptDir & "\s2lu"
-		$search = "browser_download_url"
-		$start = '"browser_download_url": "https://github.com/PolluxTroy0/S2Launcher/releases/download/v'
-		$end = '/S2Launcher.exe"'
+	ProcessClose("S2LauncherUpdater.exe")
+	FileDelete(@ScriptDir & "\S2LauncherUpdater.exe")
 
-		RunWait(@ComSpec & " /c " & 'curl "' & $url & '" --output "' & $file & '"', "", @SW_HIDE)
+	$url = "https://api.github.com/repos/PolluxTroy0/S2Launcher/releases/latest"
+	$file = @ScriptDir & "\s2lu"
+	$search = "browser_download_url"
+	$start = '"browser_download_url":"https://github.com/PolluxTroy0/S2Launcher/releases/download/v'
+	$end = '/S2Launcher.exe"'
 
-		Local $Lines
-		$Line = "0"
-		$Result = "0"
+	;RunWait(@ComSpec & " /c " & 'curl "' & $url & '" --output "' & $file & '"', "", @SW_HIDE)
+	INetGet($url, $file)
 
-		_FileReadToArray($File, $Lines)
+	Local $Lines
+	$Line = "0"
+	$Result = "0"
 
-		For $i = 1 To $Lines[0]
-			If StringInStr($Lines[$i], $Search) Then
-				$Line = $i
-				ExitLoop
-			EndIf
-		Next
+	_FileReadToArray($File, $Lines)
 
-		If $Line <> "0" Then
-			Local $hFileOpen = FileOpen($File, $FO_READ)
-			If $hFileOpen = -1 Then
-				$Result = "0"
-			Else
-				$Line = FileReadLine($File, $i)
-				$Value = _StringBetween($Line, $start, $end)
-				$Result = $Value[0]
-			EndIf
-			FileClose($hFileOpen)
-		Else
-			$Result = "0"
+	For $i = 1 To $Lines[0]
+		If StringInStr($Lines[$i], $Search) Then
+			$Line = $i
+			ExitLoop
 		EndIf
+	Next
 
-		FileDelete($file)
+	If $Line <> "0" Then
+		$Line = FileReadLine($File, $i)
+		$Value = _StringBetween($Line, $start, $end)
+		If @error Then
+			$Result = "0"
+		Else
+			$Result = $Value[0]
+		EndIf
+	Else
+		$Result = "0"
+	EndIf
 
-		If $Result <> "0" Then
-			$CurrentVer = FileGetVersion(@ScriptDir & "\S2Launcher.exe", $FV_FILEVERSION)
-			$Compare = _StringCompareVersions($CurrentVer, $Result)
-			If $Compare == -1 Then
-				$updatedl = MsgBox(64+4, "Sacred 2 Launcher", "A newer version of the launcher is available. Do you want to download it ?")
-				If $updatedl == "6" Then
-					ShellExecute("https://github.com/PolluxTroy0/S2Launcher/releases/latest/")
-					Exit
-				EndIf
+	FileDelete($file)
+
+	If $Result <> "0" Then
+		$CurrentVer = FileGetVersion(@ScriptDir & "\S2Launcher.exe", $FV_FILEVERSION)
+		$Compare = _StringCompareVersions($CurrentVer, $Result)
+		If $Compare == -1 Then
+			$updatedl = MsgBox(64+4, "Sacred 2 Launcher v." & $appversion, "A newer version (" & $Result & ") of the launcher is available. Do you want to download it ?" )
+			If $updatedl == "6" Then
+				;ShellExecute("https://github.com/PolluxTroy0/S2Launcher/releases/latest/")
+				ProcessClose("S2LauncherUpdater.exe")
+				Sleep(500)
+				FileInstall("S2LauncherUpdater.exe", @ScriptDir & "\S2LauncherUpdater.exe", 1)
+				Run(@ScriptDir & "\S2LauncherUpdater.exe https://github.com/PolluxTroy0/S2Launcher/releases/download/v" & $Result & "/S2Launcher.exe S2Launcher.exe", @ScriptDir)
+				Exit
 			EndIf
 		EndIf
 	EndIf
