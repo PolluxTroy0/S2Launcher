@@ -27,16 +27,7 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
 ## Server Launcher How To
 <details>
   <summary>Read it carefully</summary>
-  ╔═════════════════════════════════════════════════════════════════════════════════════╗
-║                          ► SACRED 2 SERVER LAUNCHER v1.0 ◄                          ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
- Allow you to start a lobby server (for online play) and/or a game server for
- Sacred 2 Gold, with a simple GUI to set all required parameters. Everything needed
- for this is bundled within the launcher.
-
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► IMPORTANT THINGS TO KNOW                                                        ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### IMPORTANT THINGS TO KNOW
  ● Player's characters will not be stored on the server, only in player's computer.
 
  ● It seems that after some days of running, some instabilitys may occurs on the
@@ -45,28 +36,16 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
  ● All players must use the same game version with same mods as the running server
    to be aple to play and avoid bugs.
 
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► REMINDER                                                                        ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### REMINDER
  Always make a backup of your game and savegames before using any mods or program.
  Even if developers do their best to provide bugfree mods or program, there is always
  a small chance that it could break up something in your games or savegames.
 
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► REQUIREMENTS                                                                    ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### REQUIREMENTS
  ● .NET Framework 4.6.1 (for the Lobby application)
    https://www.microsoft.com/fr-fr/download/details.aspx?id=49982
 
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► INSTALLATION                                                                    ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
- ● Copy S2Server.exe to the root of Sacred 2 game folder.
-   Required files will be extracted at first launch in S2Server folder.
-
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► NETWORK REQUIREMENTS                                                            ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### NETWORK REQUIREMENTS
  ● Port forwarding to server host IP (on your router) :
     ● 6800 (for lobby server),
     ● 6801 (for chat server),
@@ -82,9 +61,7 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
  ● Allow the game client, lobby server and game server into your firewall.
    You can use S2Firewall.cmd to do it easily, located in S2Server folder.
 
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► USAGE                                                                           ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### USAGE
  ● Use the GUI to modify settings and start a game server.
 
  ● If you set server mode to "LAN", the server is only accessible on your network.
@@ -94,9 +71,7 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
 
  ● Please refer to tooltips in the GUI to understand what parameters are used for.
 
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► ACCESSING THE LOBBY/GAME SERVER                                                 ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### ACCESSING THE LOBBY/GAME SERVER
  ● Open this file in a text editor : .\scripts\optionsDefault.txt
  ● Modify this line (~10) : lobby_ip = "eu.sacred2.net", by replacing "eu.sacred2.net"
    with the IP address of the lobby server to connect to.
@@ -148,9 +123,7 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
     │ forwarded to local IP.   │                         └────────────────────────┘
     └──────────────────────────┘
 
-╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► STOP LOBBY AND GAME SERVER                                                      ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
+### STOP LOBBY AND GAME SERVER
  ● To properly stop the lobby server, use the X key inside the lobby server window.
  ● To properly stop the game server, user CTRL+C inside the game server window.
 </details>
