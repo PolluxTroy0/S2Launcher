@@ -13,6 +13,8 @@
 
 If $CmdLine[0] <> 0 Then
 
+	SplashTextOn("Sacred 2 Launcher Updater", "Downloading update...", 400, 50, -1, -1)
+
 	$link = $CmdLine[1]
 	$file = $CmdLine[2]
 
@@ -21,6 +23,10 @@ If $CmdLine[0] <> 0 Then
 	FileDelete(@ScriptDir & "\S2Launcher.exe")
 	Sleep(500)
 	INetGet($link, @ScriptDir & "\" & $file)
+	If @error Then
+		MsgBox(16, "Sacred 2 Launcher Updater", "An error occured while downloading the launcher update." & @CRLF & "Please download the update manually and replace S2Launcher.exe in the game root folder.")
+		Exit
+	EndIf
 
 	Run(@ScriptDir & "\" & $file)
 
