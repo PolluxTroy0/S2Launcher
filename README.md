@@ -1,5 +1,5 @@
 ## Sacred 2 Launcher
-A custom game/server launcher for Sacred 2
+A custom game/lobby/server launcher for Sacred 2
 
 ## Download
 https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/
