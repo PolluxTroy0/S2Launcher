@@ -27,6 +27,9 @@ Opt("TrayMenuMode", 3)
 
 $appversion = FileGetVersion(@ScriptFullPath, $FV_FILEVERSION)
 
+;Check update
+_Update()
+
 If @ScriptName == "S2LauncherP.exe" Then
 	$Registry = False
 	$mode = " - Portable Mode"
@@ -401,7 +404,99 @@ Func _Save()
 	EndIf
 EndFunc
 
+Func _Update()
+	If @OSVersion == "WIN_10" Or @OSVersion == "WIN_11" Then
+		$url = "https://api.github.com/repos/PolluxTroy0/S2Launcher/releases/latest"
+		$file = @ScriptDir & "\s2lu"
+		$search = "browser_download_url"
+		$start = '"browser_download_url": "https://github.com/PolluxTroy0/S2Launcher/releases/download/v'
+		$end = '/S2Launcher.exe"'
+
+		RunWait(@ComSpec & " /c " & 'curl "' & $url & '" --output "' & $file & '"', "", @SW_HIDE)
+
+		Local $Lines
+		$Line = "0"
+		$Result = "0"
+
+		_FileReadToArray($File, $Lines)
+
+		For $i = 1 To $Lines[0]
+			If StringInStr($Lines[$i], $Search) Then
+				$Line = $i
+				ExitLoop
+			EndIf
+		Next
+
+		If $Line <> "0" Then
+			Local $hFileOpen = FileOpen($File, $FO_READ)
+			If $hFileOpen = -1 Then
+				$Result = "0"
+			Else
+				$Line = FileReadLine($File, $i)
+				$Value = _StringBetween($Line, $start, $end)
+				$Result = $Value[0]
+			EndIf
+			FileClose($hFileOpen)
+		Else
+			$Result = "0"
+		EndIf
+
+		FileDelete($file)
+
+		If $Result <> "0" Then
+			$CurrentVer = FileGetVersion(@ScriptDir & "\S2Launcher.exe", $FV_FILEVERSION)
+			$Compare = _StringCompareVersions($CurrentVer, $Result)
+			If $Compare == -1 Then
+				$updatedl = MsgBox(64+4, "Sacred 2 Launcher", "A newer version of the launcher is available. Do you want to download it ?")
+				If $updatedl == "6" Then
+					ShellExecute("https://github.com/PolluxTroy0/S2Launcher/releases/latest/")
+					Exit
+				EndIf
+			EndIf
+		EndIf
+	EndIf
+EndFunc
+
 Func _Exit()
 	FileDelete(@TempDir & "\splash.jpg")
 	Exit
 EndFunc
+
+Func _StringCompareVersions($s_Version1, $s_Version2 = "0.0.0.0")
+
+; Confirm strings are of correct basic format. Set @error to 1,2 or 3 if not.
+    SetError((StringIsDigit(StringReplace($s_Version1, ".", ""))=0) + 2 * (StringIsDigit(StringReplace($s_Version2, ".", ""))=0))
+    If @error>0 Then Return 0; Ought to Return something!
+
+    Local $i_Index, $i_Result, $ai_Version1, $ai_Version2
+
+; Split into arrays by the "." separator
+    $ai_Version1 = StringSplit($s_Version1, ".")
+    $ai_Version2 = StringSplit($s_Version2, ".")
+    $i_Result = 0; Assume strings are equal
+
+; Ensure strings are of the same (correct) format:
+;  Short strings are padded with 0s. Extraneous components of long strings are ignored. Values are Int.
+    If $ai_Version1[0] <> 4 Then ReDim $ai_Version1[5]
+    For $i_Index = 1 To 4
+        $ai_Version1[$i_Index] = Int($ai_Version1[$i_Index])
+    Next
+
+    If $ai_Version2[0] <> 4 Then ReDim $ai_Version2[5]
+    For $i_Index = 1 To 4
+        $ai_Version2[$i_Index] = Int($ai_Version2[$i_Index])
+    Next
+
+    For $i_Index = 1 To 4
+        If $ai_Version1[$i_Index] < $ai_Version2[$i_Index] Then; Version1 older than Version2
+            $i_Result = -1
+        ElseIf $ai_Version1[$i_Index] > $ai_Version2[$i_Index] Then; Version1 newer than Version2
+            $i_Result = 1
+        EndIf
+   ; Bail-out if they're not equal
+        If $i_Result <> 0 Then ExitLoop
+    Next
+
+    Return $i_Result
+
+EndFunc ;==>_StringCompareVersions
