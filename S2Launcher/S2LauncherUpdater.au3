@@ -6,8 +6,8 @@
 #AutoIt3Wrapper_Res_ProductName=Sacred 2 Launcher Updater
 #AutoIt3Wrapper_Res_ProductVersion=1.0.0.0
 #AutoIt3Wrapper_Res_Fileversion=1.0.0.0
-#AutoIt3Wrapper_Res_CompanyName=PolluxTroy (Discord: Pollux Troy#0231)
-#AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy (Discord: Pollux Troy#0231)
+#AutoIt3Wrapper_Res_CompanyName=PolluxTroy
+#AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy
 
 #include <InetConstants.au3>
 
