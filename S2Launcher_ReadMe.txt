@@ -29,6 +29,13 @@
  All settings are stored in S2Launcher.ini file next to the launcher executable.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
+║ ► REMINDER                                                                        ◄ ║
+╚═════════════════════════════════════════════════════════════════════════════════════╝
+ Always make a backup of your game and savegames before using any mods or program.
+ Even if developers do their best to provide bugfree mods or program, there is always
+ a small chance that it could break up something in your games or savegames.
+
+╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► CREDITS                                                                         ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● Sacred 2 Launcher
