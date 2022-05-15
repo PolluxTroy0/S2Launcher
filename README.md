@@ -27,6 +27,7 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
 ## Server Launcher How To
 <details>
   <summary>Read it carefully</summary>
+ 
 ### IMPORTANT THINGS TO KNOW  
  - Player's characters will not be stored on the server, only in player's computer.
  - It seems that after some days of running, some instabilitys may occurs on the
@@ -36,9 +37,9 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
    to be aple to play and avoid bugs.
 
 ### REMINDER  
- Always make a backup of your game and savegames before using any mods or program.
- Even if developers do their best to provide bugfree mods or program, there is always
- a small chance that it could break up something in your games or savegames.
+Always make a backup of your game and savegames before using any mods or program.
+Even if developers do their best to provide bugfree mods or program, there is always
+a small chance that it could break up something in your games or savegames.
 
 ### REQUIREMENTS  
  - .NET Framework 4.6.1 (for the Lobby application)
@@ -55,49 +56,46 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
    lobby server or game server have the IP address 192.168.1.5, you musd add a rule
    that redirect each ports to this computer's IP address for TCP and UDP protocol.
 
- ● Allow ports 6800, 6801 and 6802 into your firewall if needed.
+ - Allow ports 6800, 6801 and 6802 into your firewall if needed.
 
- ● Allow the game client, lobby server and game server into your firewall.
+ - Allow the game client, lobby server and game server into your firewall.
    You can use S2Firewall.cmd to do it easily, located in S2Server folder.
 
 ### USAGE  
- ● Use the GUI to modify settings and start a game server.
-
- ● If you set server mode to "LAN", the server is only accessible on your network.
-
- ● If you set server mode to "OpenNet", a lobby server will be started in order for
+ - Use the GUI to modify settings and start a game server.
+ - If you set server mode to "LAN", the server is only accessible on your network.
+ - If you set server mode to "OpenNet", a lobby server will be started in order for
    everyone to be able to join it, and a game server will be started.
-
- ● Please refer to tooltips in the GUI to understand what parameters are used for.
+ - Please refer to tooltips in the GUI to understand what parameters are used for.
 
 ### ACCESSING THE LOBBY/GAME SERVER  
- ● Open this file in a text editor : .\scripts\optionsDefault.txt
- ● Modify this line (~10) : lobby_ip = "eu.sacred2.net", by replacing "eu.sacred2.net"
+ - Open this file in a text editor : .\scripts\optionsDefault.txt
+ - Modify this line (~10) : lobby_ip = "eu.sacred2.net", by replacing "eu.sacred2.net"
    with the IP address of the lobby server to connect to.
-    ● If you start the game on the same computer where the lobby server is launched,
+  - If you start the game on the same computer where the lobby server is launched,
       use "localhost" as the IP address.
-    ● If you want someone to connect to the lobby server from the internet, he/she/it
+  - If you want someone to connect to the lobby server from the internet, he/she/it
       must use the public IP address of the server. You can use this website to
       find it : https://www.whatismyip.com/
- ● Save the file then launch the game. Don't forget to start the server before.
+ - Save the file then launch the game. Don't forget to start the server before.
 
- ■ If you set the server mode to OpenNet :
-  ● Go to Multiplayer, then click on "New account",
-  ● Fill in the form like desired. Remember not to use sensible data for password,
-  ● Don't worry about CD Key, enter anything you want,
-  ● Validate the registration form,
-  ● Now, you can use this newly created account to log into the lobby server,
-  ● In the main window, you must now be abble to see and join your server.
+ - If you set the server mode to OpenNet :
+  - Go to Multiplayer, then click on "New account",
+  - Fill in the form like desired. Remember not to use sensible data for password,
+  - Don't worry about CD Key, enter anything you want,
+  - Validate the registration form,
+  - Now, you can use this newly created account to log into the lobby server,
+  - In the main window, you must now be abble to see and join your server.
 
- ■ If you set the server mode to LAN :
-  ● Go to Multiplayer, then click on "Local",
-  ● In the main window, you must now be abble to see and join your server.
+ - If you set the server mode to LAN :
+  - Go to Multiplayer, then click on "Local",
+  - In the main window, you must now be abble to see and join your server.
 
  If you get an error 61 or 64, that's something related to the game can't have
  access to the lobby or game server. Check NETWORK REQUIREMENTS section of
  this ReadMe.
 
- ■ This is a network example :
+ - This is a network example :
 
        ┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐
        │     COMPUTER 1    │     │     COMPUTER 2    │     │     COMPUTER 3    │
