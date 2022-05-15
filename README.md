@@ -25,27 +25,24 @@ https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-
 Copy S2Launcher.exe to the root of Sacred 2 game folder.
 
 ## Server Launcher How To
-<details>
-  <summary>Read it carefully</summary>
  
-### IMPORTANT THINGS TO KNOW  
+### Important things to know
  - Player's characters will not be stored on the server, only in player's computer.
  - It seems that after some days of running, some instabilitys may occurs on the
    server. It is recommended to restart it from time to time.
-
  - All players must use the same game version with same mods as the running server
    to be aple to play and avoid bugs.
 
-### REMINDER  
+### Reminder  
 Always make a backup of your game and savegames before using any mods or program.
 Even if developers do their best to provide bugfree mods or program, there is always
 a small chance that it could break up something in your games or savegames.
 
-### REQUIREMENTS  
+### Requirements  
  - .NET Framework 4.6.1 (for the Lobby application)
    https://www.microsoft.com/fr-fr/download/details.aspx?id=49982
 
-### NETWORK REQUIREMENTS  
+### Network Requirements
  - Port forwarding to server host IP (on your router) :
   - 6800 (for lobby server),
   - 6801 (for chat server),
@@ -61,14 +58,14 @@ a small chance that it could break up something in your games or savegames.
  - Allow the game client, lobby server and game server into your firewall.
    You can use S2Firewall.cmd to do it easily, located in S2Server folder.
 
-### USAGE  
+### Usage 
  - Use the GUI to modify settings and start a game server.
  - If you set server mode to "LAN", the server is only accessible on your network.
  - If you set server mode to "OpenNet", a lobby server will be started in order for
    everyone to be able to join it, and a game server will be started.
  - Please refer to tooltips in the GUI to understand what parameters are used for.
 
-### ACCESSING THE LOBBY/GAME SERVER  
+### Accessing the Lobby/Game Server 
  - Open this file in a text editor : .\scripts\optionsDefault.txt
  - Modify this line (~10) : lobby_ip = "eu.sacred2.net", by replacing "eu.sacred2.net"
    with the IP address of the lobby server to connect to.
@@ -120,10 +117,9 @@ This is a network example :
     │ forwarded to local IP.   │                         └────────────────────────┘
     └──────────────────────────┘
  
-### STOP LOBBY AND GAME SERVER  
+### Stop Lobby and Game Server
  - To properly stop the lobby server, use the X key inside the lobby server window.
  - To properly stop the game server, user CTRL+C inside the game server window.
-</details>
 
 ## Credits
 - Sacred 2 Launcher
