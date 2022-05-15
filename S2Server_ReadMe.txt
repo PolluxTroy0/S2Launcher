@@ -70,7 +70,7 @@
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● Open this file in a text editor : .\scripts\optionsDefault.txt
  ● Modify this line (~10) : lobby_ip = "eu.sacred2.net", by replacing "eu.sacred2.net"
-   with the IP address of the lobby server.
+   with the IP address of the lobby server to connect to.
     ● If you start the game on the same computer where the lobby server is launched,
       use "localhost" as the IP address.
     ● If you want someone to connect to the lobby server from the internet, he/she/it
