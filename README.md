@@ -124,13 +124,9 @@ This is a network example :
  - To properly stop the game server, user CTRL+C inside the game server window.
 
 ## Credits
-- Sacred 2 Launcher
+- Sacred 2 Launcher / Server Launcher
   - Author : PolluxTroy (Discord: Pollux Troy#0231)  
   - Sources : https://github.com/PolluxTroy0/S2Launcher
-
-- Sacred 2 Server Launcher
-   - Author : PolluxTroy (Discord: Pollux Troy#0231)  
-   - Sources : https://github.com/PolluxTroy0/S2Launcher
 
 - Sacred 2 Lobby Emulator
   - Author : pnxr
