@@ -95,7 +95,7 @@ a small chance that it could break up something in your games or savegames.
  access to the lobby or game server. Check NETWORK REQUIREMENTS section of
  this ReadMe.
 
- - This is a network example :
+This is a network example :
 
        ┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐
        │     COMPUTER 1    │     │     COMPUTER 2    │     │     COMPUTER 3    │
@@ -119,7 +119,7 @@ a small chance that it could break up something in your games or savegames.
     │ Ports 6800-6802 are      │                         │ Local IP : 192.168.1.5 │
     │ forwarded to local IP.   │                         └────────────────────────┘
     └──────────────────────────┘
-
+ 
 ### STOP LOBBY AND GAME SERVER  
  - To properly stop the lobby server, use the X key inside the lobby server window.
  - To properly stop the game server, user CTRL+C inside the game server window.
