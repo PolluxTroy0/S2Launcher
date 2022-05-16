@@ -7,7 +7,7 @@
 <body>
 
 <div id="menu" style="margin: auto; width: 765px; display: block; text-align: center;">
-<font face="Consolas" size="6"><pre><b>Sacred 2 Launcher - ReadMe</b>
+<font face="Consolas" size="6"><pre><b><a id="maintitle">Sacred 2 Launcher - ReadMe</a></b>
 <font face="Consolas" size="3"><b><a href="https://github.com/PolluxTroy0/S2Launcher" target="_blank">https://github.com/PolluxTroy0/S2Launcher</a></b></pre></font>
 <font face="Consolas" size="4"><pre><a id="llink" href="#" onclick="showl()">Game Launcher ReadMe</a> / <a id="slink" href="#" onclick="shows()">Server Launcher ReadMe</a>
 <br/></div>
@@ -287,27 +287,34 @@
 var readme = location.href.split("/").slice(-1);
 var x = document.getElementById("launcher");
 var y = document.getElementById("server");
+var z = document.getElementById("maintitle");
+var l = "Sacred 2 Launcher - ReadMe";
+var s = "Sacred 2 Server Launcher - ReadMe";
 
 if (readme == "S2Server-ReadMe.html") {
   x.style.display = "none";
   y.style.display = "block";
-  document.title = "Sacred 2 Server Launcher - ReadMe";
+  z.innerHTML = s;
+  document.title = s;
 } else {
   x.style.display = "block";
   y.style.display = "none";
-  document.title = "Sacred 2 Launcher - ReadMe";
+  z.innerHTML = l;
+  document.title = l;
 }
 
 function shows() {
   x.style.display = "none";
   y.style.display = "block";
-  document.title = "Sacred 2 Server Launcher - ReadMe";
+  z.innerHTML = s;
+  document.title = s;
 }
 
 function showl() {
   x.style.display = "block";
   y.style.display = "none";
-  document.title = "Sacred 2 Launcher - ReadMe";
+  z.innerHTML = l;
+  document.title = l;
 }
 </script>
 
