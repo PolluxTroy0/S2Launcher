@@ -1,7 +1,8 @@
 <html>
 <head>
-<title>Sacred 2 Launcher - ReadMe</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sacred 2 Game/Server Launcher - ReadMe</title>
+<meta name="author" content="Pollux Troy">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -62,21 +63,18 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► <b>CREDITS</b>                                                                         ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
- ● Sacred 2 Launcher & Server Launcher
+ ● Sacred 2 Launcher
     ● Author : PolluxTroy (Discord: Pollux Troy#0231)  
     ● Sources : <a href="https://github.com/PolluxTroy0/S2Launcher" target="_blank">https://github.com/PolluxTroy0/S2Launcher</a>
 
- ● Sacred 2 Lobby Emulator
-    ● Author : pnxr
-    ● Sources : <a href="https://github.com/pnxr/sacred2-lobby-emulator" target="_blank">https://github.com/pnxr/sacred2-lobby-emulator</a>
-
- ● JSGME Mods Manager
+● JSGME Mods Manager
     ● Author : Jesen Jones
     ● Sources : <a href="http://www.users.on.net/~jscones/software" target="_blank">http://www.users.on.net/~jscones/software</a>
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► <b>VESRIONS HISTORY</b>                                                                ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
+ ● v1.0.3.0 - 17/05/2022 - HTML ReadMe and some minor code debugging
  ● v1.0.2.0 - 16/05/2022 - Code optimization and comments
  ● v1.0.1.0 - 15/05/2022 - Added an auto update function of the launcher
  ● v1.0.0.5 - 15/05/2022 - Added check for launcher update on GitHub
@@ -264,7 +262,7 @@
  ● S2Lobby.exe.config		: Configuration file for lobby server application.
  ● S2Server.exe			: Main application for the launcher.
  ● S2Server.ini			: Store all settings for the launcher application.
- ● S2Server_ReadMe.html		: This ReadMe.
+ ● S2Server-ReadMe.html		: This ReadMe.
  ● System.Data.SQLite.dll	: SQLite dll used to manage databases.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
@@ -288,6 +286,7 @@ var readme = location.href.split("/").slice(-1);
 var x = document.getElementById("launcher");
 var y = document.getElementById("server");
 var z = document.getElementById("maintitle");
+var m = document.getElementById("menu");
 var l = "Sacred 2 Launcher - ReadMe";
 var s = "Sacred 2 Server Launcher - ReadMe";
 
@@ -296,11 +295,19 @@ if (readme == "S2Server-ReadMe.html") {
   y.style.display = "block";
   z.innerHTML = s;
   document.title = s;
+  m.style.display = "none";
+} else if (readme == "S2Launcher-ReadMe.html") {
+  x.style.display = "block";
+  y.style.display = "none";
+  z.innerHTML = l;
+  document.title = l;
+  m.style.display = "none";
 } else {
   x.style.display = "block";
   y.style.display = "none";
   z.innerHTML = l;
   document.title = l;
+  m.style.display = "block";
 }
 
 function shows() {
