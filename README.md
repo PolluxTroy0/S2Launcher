@@ -33,7 +33,7 @@ Copy S2Launcher.exe to the root of Sacred 2 game folder.
  - It seems that after some days of running, some instabilitys may occurs on the
    server. It is recommended to restart it from time to time.
  - All players must use the same game version with same mods as the running server
-   to be aple to play and avoid bugs.
+   to be able to play and avoid bugs.
 
 ### Reminder  
 Always make a backup of your game and savegames before using any mods or program.
