@@ -4,8 +4,8 @@
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Sacred 2 Launcher
 #AutoIt3Wrapper_Res_ProductName=Sacred 2 Launcher
-#AutoIt3Wrapper_Res_ProductVersion=1.0.2.0
-#AutoIt3Wrapper_Res_Fileversion=1.0.2.0
+#AutoIt3Wrapper_Res_ProductVersion=1.0.3.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.3.0
 #AutoIt3Wrapper_Res_CompanyName=PolluxTroy
 #AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy
 
@@ -44,6 +44,9 @@ If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autostart", "0") == "1
 Else
 	IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autostart", "0")
 EndIf
+
+;ReadMe
+FileInstall("ReadMe.html", @ScriptDir & "\S2Launcher-ReadMe.html",1)
 
 ;Splashscreen
 FileInstall("splash.jpg", @TempDir & "\splash.jpg", 1)

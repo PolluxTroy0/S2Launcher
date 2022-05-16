@@ -42,7 +42,7 @@ FileInstall("System.Data.SQLite.dll", @ScriptDir & "\S2Server\System.Data.SQLite
 FileInstall("accounts.sqlite", @ScriptDir & "\S2Server\accounts.sqlite",0)
 ;FileInstall("ip.cfg", @ScriptDir & "\S2Server\ip.cfg",0) ;Contain one line : 127.0.0.1
 FileInstall("S2Firewall.cmd", @ScriptDir & "\S2Server\S2Firewall.cmd",0)
-FileInstall("S2Server_ReadMe.txt", @ScriptDir & "\S2Server\S2Server_ReadMe.txt",0)
+FileInstall("ReadMe.html", @ScriptDir & "\S2Server-ReadMe.html",1)
 SplashOff()
 
 ;Commandline
