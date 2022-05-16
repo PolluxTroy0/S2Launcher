@@ -1,5 +1,5 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
-║                          ► SACRED 2 SERVER LAUNCHER v1.0 ◄                          ║
+║                            ► SACRED 2 SERVER LAUNCHER ◄                             ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  Allow you to start a lobby server (for online play) and/or a game server for
  Sacred 2 Gold, with a simple GUI to set all required parameters. Everything needed

@@ -1,5 +1,5 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
-║                              ► SACRED 2 LAUNCHER v1.0 ◄                             ║
+║                                ► SACRED 2 LAUNCHER ◄                                ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  A custom game launcher for Sacred 2 with the following features :
 
@@ -21,12 +21,21 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► INSTALLATION                                                                    ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
- ● Copy S2Launcher.exe to the root of Sacred 2 game folder.
+ Copy S2Launcher.exe to the root of Sacred 2 game folder.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► CONFIGURATION FILE                                                              ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  All settings are stored in S2Launcher.ini file next to the launcher executable.
+
+ ● If you want to change the savegames folder name, edit the S2Launcher.ini file,
+   and set the value of savefoldername to anything you want (without spaces).
+
+ ● If you want to disable auto update check on startup, edit the S2Launcher.ini file,
+   and set the value of "update" to 0.
+
+ ● If you want to start the game with your settings and skip the launcher GUI,
+   edit the S2Launcher.ini file and set the value of "autostart" to 1.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► REMINDER                                                                        ◄ ║
@@ -57,6 +66,7 @@
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► VESRIONS HISTORY                                                                ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
+ ● v1.0.2.0 - 16/05/2022 - Code optimization and comments
  ● v1.0.1.0 - 15/05/2022 - Added an auto update function of the launcher
  ● v1.0.0.5 - 15/05/2022 - Added check for launcher update on GitHub
  ● v1.0.0.0 - 14/05/2022 - Initial Release
