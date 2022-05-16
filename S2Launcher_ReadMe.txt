@@ -19,6 +19,13 @@
     Allow you to start a lobby server and a game server for LAN/Online play.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
+║ ► REMINDER                                                                        ◄ ║
+╚═════════════════════════════════════════════════════════════════════════════════════╝
+ Always make a backup of your game and savegames before using any mods or program.
+ Even if developers do their best to provide bugfree mods or program, there is always
+ a small chance that it could break up something in your games or savegames.
+
+╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► INSTALLATION                                                                    ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  Copy S2Launcher.exe to the root of Sacred 2 game folder.
@@ -38,20 +45,9 @@
    edit the S2Launcher.ini file and set the value of "autostart" to 1.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► REMINDER                                                                        ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
- Always make a backup of your game and savegames before using any mods or program.
- Even if developers do their best to provide bugfree mods or program, there is always
- a small chance that it could break up something in your games or savegames.
-
-╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► CREDITS                                                                         ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
- ● Sacred 2 Launcher
-    ● Author : PolluxTroy (Discord: Pollux Troy#0231)  
-    ● Sources : https://github.com/PolluxTroy0/S2Launcher
-
- ● Sacred 2 Server Launcher
+ ● Sacred 2 Launcher & Server Launcher
     ● Author : PolluxTroy (Discord: Pollux Troy#0231)  
     ● Sources : https://github.com/PolluxTroy0/S2Launcher
 

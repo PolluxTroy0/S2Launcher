@@ -173,7 +173,7 @@
  ● accounts.sqlite		: Database containing users accounts.
  ● BouncyCastle.Crypto.dll	: Used for network data encryption.
  ● channels.sqlite		: Databse used for chat channels.
- ● S2Firewall.cmd		: Used for enable/disable firewall rules.
+ ● S2Firewall.cmd		: Can be used to enable/disable firewall rules.
  ● S2Library.dll		: Library used for Sacred 2.
  ● S2Lobby.exe			: Lobby server main application.
  ● S2Lobby.exe.config		: Configuration file for lobby server application.
@@ -184,15 +184,6 @@
  ● sources.zip			: Source files used to build launcher and lobby.
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
-║ ► MODS RECOMMENDATIONS                                                            ◄ ║
-╚═════════════════════════════════════════════════════════════════════════════════════╝
- ● Sacred 2 Community Patch v1.60 (by czevak)
-   https://darkmatters.org/forums/index.php?/files/file/91-community-patch/
-
- ● Sacred 2 Enhanced Edition 3.1 (by Flix)
-   https://darkmatters.org/forums/index.php?/files/file/357-sacred-2-enhanced-edition/
-
-╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► CREDITS AND SOURCES                                                             ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● Sacred 2 Server Launcher
@@ -200,7 +191,6 @@
     ● Sources : https://github.com/PolluxTroy0/S2Launcher
 
  ● Sacred 2 Lobby Emulator
-    ● Author : pnxr
     ● Sources : https://github.com/pnxr/sacred2-lobby-emulator/
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
