@@ -4,8 +4,8 @@
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Sacred 2 Launcher
 #AutoIt3Wrapper_Res_ProductName=Sacred 2 Launcher
-#AutoIt3Wrapper_Res_ProductVersion=1.0.1.0
-#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
+#AutoIt3Wrapper_Res_ProductVersion=1.0.2.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.2.0
 #AutoIt3Wrapper_Res_CompanyName=PolluxTroy
 #AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy
 
@@ -24,22 +24,36 @@
 #include <TrayConstants.au3>
 #include <InetConstants.au3>
 
+;Options
 Opt("TrayAutoPause", 0)
 Opt("TrayIconHide", 0)
 Opt("TrayMenuMode", 3)
 
+;Variables
 $appversion = FileGetVersion(@ScriptFullPath, $FV_FILEVERSION)
+Global $path = @ScriptDir & "\"
 
+;Check for update
 _Update()
 
+;Autostart
+If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autostart", "0") == "1" Then
+	_Play()
+	_Wait()
+	_Exit()
+Else
+	IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autostart", "0")
+EndIf
+
+;Splashscreen
 FileInstall("splash.jpg", @TempDir & "\splash.jpg", 1)
 
+;Get Sacred 2 Infos
 $ver = FileGetVersion(@ScriptDir & "\system\sacred2.exe", $FV_FILEVERSION)
 If @error Then
 	$ver = "0.0.0.0"
 EndIf
 
-$path = @ScriptDir & "\"
 $File = @UserProfileDir & "\AppData\Local\Ascaron Entertainment\Sacred 2\optionsCustom.txt"
 
 $Search = "locale.language"
@@ -72,16 +86,17 @@ Else
 EndIf
 $track = _Search($File, $Search)
 
+;Defining status bar infos
 Local $bar[5] = [@TAB & "v." & $ver, @TAB & "L : " & $lang, @TAB & "S : " & $speech, @TAB & "T : " & $track, "" & $path]
 Local $barsize[5] = [60, 60, 60, 40, -1]
 
+;Main GUI
 $Form1 = GUICreate("Sacred 2 Launcher" & " v." & $appversion, 561, 379, -1, -1)
 GUISetBkColor("0xECE3BE", $Form1)
 $Pic1 = GUICtrlCreatePic(@TempDir & "\splash.jpg", 0, 0, 561, 269)
 $Play = GUICtrlCreateButton("Play", 448, 280, 99, 65)
 $Server = GUICtrlCreateButton("Server" & @CRLF & "Launcher", 216, 280, 99, 65, $BS_MULTILINE)
 $Mods = GUICtrlCreateButton("Mods" & @CRLF & "Manager", 8, 280, 99, 65, $BS_MULTILINE)
-;$Save = GUICtrlCreateButton("Savegame Folder", 112, 280, 99, 33, $BS_MULTILINE)
 $Backup = GUICtrlCreateButton("Backup Saves", 112, 280, 99, 41)
 $autosaveonexit = GUICtrlCreateCheckbox("AutoBackup", 120, 328, 81, 17)
 $skipopenal = GUICtrlCreateCheckbox("Skip OpenAl", 320, 296, 80, 17)
@@ -90,12 +105,14 @@ $nocpubinding = GUICtrlCreateCheckbox("No CPU Binding", 320, 280, 95, 17)
 $showserver = GUICtrlCreateCheckbox("Show Server", 320, 312, 81, 17)
 $StatusBar1 = _GUICtrlStatusBar_Create($Form1, $barsize, $bar)
 
+;Tooltips
 GUICtrlSetTip($skipopenal, "Disable OpenAl API for sound and audio.")
 GUICtrlSetTip($logging, "Enable logging")
 GUICtrlSetTip($nocpubinding, "Prevent the game from using only one CPU.")
 GUICtrlSetTip($showserver, "Show game server.")
 GUICtrlSetTip($autosaveonexit, "Create a savegames backup when the game stop.")
 
+;Play button languages
 If $lang == "fr_FR" Then
 	GUICtrlSetData($Play, "Jouer")
 ElseIf $lang == "de_DE" Then
@@ -118,6 +135,7 @@ Else
 	GUICtrlSetData($Play, "Play")
 EndIf
 
+;Settings Buttons
 If Not FileExists($path & "system\sacred2.exe") Then
 	GUICtrlDelete($Play)
 	$Play = GUICtrlCreateButton("Game" & @CRLF & "not found !", 448, 280, 99, 65, $BS_MULTILINE)
@@ -140,37 +158,39 @@ Else
 	$modsinstall = 1
 EndIf
 
-$ini_skipopenal = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4")
+;Settings Checkboxes
 If FileExists(@ScriptDir & "\S2Launcher.ini") Then
-	If $ini_skipopenal == 1 Then
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4") == 1 Then
 		GUICtrlSetState($skipopenal, $GUI_CHECKED)
 	EndIf
 Else
 	GUICtrlSetState($skipopenal, $GUI_CHECKED)
 EndIf
-$ini_logging = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4")
-If $ini_logging == 1 Then
-	GUICtrlSetState($logging, $GUI_CHECKED)
-EndIf
-$ini_nocpubinding = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4")
+
 If FileExists(@ScriptDir & "\S2Launcher.ini") Then
-	If $ini_nocpubinding == 1 Then
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4") == 1 Then
 		GUICtrlSetState($nocpubinding, $GUI_CHECKED)
 	EndIf
 Else
 	GUICtrlSetState($nocpubinding, $GUI_CHECKED)
 EndIf
-$ini_showserver = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4")
-If $ini_showserver == 1 Then
+
+If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4") == 1 Then
+	GUICtrlSetState($logging, $GUI_CHECKED)
+EndIf
+
+If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4") == 1 Then
 	GUICtrlSetState($showserver, $GUI_CHECKED)
 EndIf
-$ini_autosaveonexit = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "4")
-If $ini_autosaveonexit == 1 Then
+
+If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "4") == 1 Then
 	GUICtrlSetState($autosaveonexit, $GUI_CHECKED)
 EndIf
 
+;Show GUI
 GUISetState(@SW_SHOW, $Form1)
 
+;Main loop
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
@@ -179,25 +199,43 @@ While 1
 			_Exit()
 
 		Case $Play
+			GUISetState(@SW_HIDE, $Form1)
 			_Save()
+			_Play()
+			_Wait()
+			_Exit()
+
 			$param = ""
-			If GUICtrlRead($skipopenal) == 1 Then
+
+			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4") == 1 Then
 				$param &= " -skipopenal"
 			EndIf
-			If GUICtrlRead($logging) == 1 Then
+
+			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4") == 1 Then
 				$param &= " -logging"
 			EndIf
-			If GUICtrlRead($nocpubinding) == 1 Then
+
+			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4") == 1 Then
 				$param &= " -nocpubinding"
 			EndIf
-			If GUICtrlRead($showserver) == 1 Then
+
+			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4") == 1 Then
 				$param &= " -showserver"
 			EndIf
+
 			Run($path & "system\sacred2.exe" & $param)
-			GUISetState(@SW_HIDE, $Form1)
+
 			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "0") == 1 Then
-				_WaitCloseForBackup()
+				TraySetToolTip("Waiting for Sacred 2 to stop," & @CRLF & "to create a savegames backup...")
+
+				While ProcessExists("sacred2.exe")
+					Sleep(1000)
+				WEnd
+
+				_Backup(1)
+				Sleep(5000)
 			EndIf
+
 			_Exit()
 
 		Case $Server
@@ -241,6 +279,87 @@ While 1
 	EndSwitch
 WEnd
 
+;Play function (to start the game)
+Func _Play()
+	$param = ""
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4") == 1 Then
+		$param &= " -skipopenal"
+	EndIf
+
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4") == 1 Then
+		$param &= " -logging"
+	EndIf
+
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4") == 1 Then
+		$param &= " -nocpubinding"
+	EndIf
+
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4") == 1 Then
+		$param &= " -showserver"
+	EndIf
+
+	Run($path & "system\sacred2.exe" & $param)
+EndFunc
+
+;Wait function (for game to sop)
+Func _Wait()
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "0") == 1 Then
+		TraySetToolTip("Waiting for Sacred 2 to stop," & @CRLF & "to create a savegames backup...")
+
+		While ProcessExists("sacred2.exe")
+			Sleep(1000)
+		WEnd
+
+		_Backup(1)
+		Sleep(5000)
+	EndIf
+EndFunc
+
+;Backup savegames function
+Func _Backup($auto = 0)
+	Sleep(500)
+
+	$datetime = @YEAR & @MON & @MDAY & @HOUR & @MIN & @SEC
+
+	$savefoldername = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "savefoldername", "S2SavesBackup")
+
+	If $savefoldername == "" Then
+		$savefoldername = "S2SavesBackup"
+	EndIf
+
+	$backupfolder = @ScriptDir & "\" & $savefoldername & "\"
+
+	If $auto == 0 Then
+		$extsave = "-MANUAL"
+	ElseIf $auto == 1 Then
+		$extsave = "-AUTO"
+	Else
+		$extsave = ""
+	EndIf
+
+	$CopySaves = FileCopy(@UserProfileDir & "\Saved Games\Ascaron Entertainment\Sacred 2\*.*", $backupfolder & $datetime & $extsave & "\saves\", 8)
+	$CopyOptions = FileCopy(@UserProfileDir & "\AppData\Local\Ascaron Entertainment\Sacred 2\*.*", $backupfolder & $datetime & $extsave & "\options\", 8)
+
+	If $CopySaves == 0 Or $CopyOptions == 0 Then
+		$CopyMsg = "An error occured. Unable to backup savegames !"
+		$CopyIcon = 3
+	Else
+		$CopyMsg = "Game saves have been backed up in " & $backupfolder & $datetime & $extsave & " !"
+		$CopyIcon = 0
+	EndIf
+
+	If RegRead("HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "EnableBalloonTips") == 0 Then
+		;If $auto == 0 Then
+		MsgBox(64, "AutoBackup Saves", $CopyMsg)
+		;EndIf
+	Else
+		TrayTip("AutoBackup Saves", $CopyMsg, 5, $CopyIcon)
+	EndIf
+
+	Sleep(500)
+EndFunc
+
+;Search github for updates
 Func _Search($File, $Search)
 	Local $Lines
 	$Line = "0"
@@ -281,62 +400,7 @@ Func _Search($File, $Search)
 	Return $Result
 EndFunc
 
-Func _WaitCloseForBackup()
-	TraySetToolTip("Waiting for Sacred 2 to stop," & @CRLF & "to create a savegames backup...")
-
-	While ProcessExists("sacred2.exe")
-		Sleep(1000)
-	WEnd
-
-	_Backup(1)
-	Sleep(5000)
-EndFunc
-
-Func _Backup($auto = 0)
-	GUICtrlSetState($Backup, $GUI_DISABLE)
-	Sleep(500)
-
-	$datetime = @YEAR & @MON & @MDAY & @HOUR & @MIN & @SEC
-
-	$savefoldername = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "savefoldername", "S2SavesBackup")
-
-	If $savefoldername == "" Then
-		$savefoldername = "S2SavesBackup"
-	EndIf
-
-	$backupfolder = @ScriptDir & "\" & $savefoldername & "\"
-
-	If $auto == 0 Then
-		$extsave = "-MANUAL"
-	ElseIf $auto == 1 Then
-		$extsave = "-AUTO"
-	Else
-		$extsave = ""
-	EndIf
-
-	$CopySaves = FileCopy(@UserProfileDir & "\Saved Games\Ascaron Entertainment\Sacred 2\*.*", $backupfolder & $datetime & $extsave & "\saves\", 8)
-	$CopyOptions = FileCopy(@UserProfileDir & "\AppData\Local\Ascaron Entertainment\Sacred 2\*.*", $backupfolder & $datetime & $extsave & "\options\", 8)
-
-	If $CopySaves == 0 Or $CopyOptions == 0 Then
-		$CopyMsg = "An error occured. Unable to backup savegames !"
-		$CopyIcon = 3
-	Else
-		$CopyMsg = "Game saves have been backed up in " & $backupfolder & $datetime & $extsave & " !"
-		$CopyIcon = 0
-	EndIf
-
-	If RegRead("HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "EnableBalloonTips") == 0 Then
-		;If $auto == 0 Then
-		MsgBox(64, "AutoBackup Saves", $CopyMsg)
-		;EndIf
-	Else
-		TrayTip("AutoBackup Saves", $CopyMsg, 5, $CopyIcon)
-	EndIf
-
-	GUICtrlSetState($Backup, $GUI_ENABLE)
-	Sleep(500)
-EndFunc
-
+;Save launcher settings
 Func _Save()
 	$save_skipopenal = GUICtrlRead($skipopenal)
 	$save_logging = GUICtrlRead($logging)
@@ -375,68 +439,73 @@ Func _Save()
 	EndIf
 EndFunc
 
+;Update launcher
 Func _Update()
 	ProcessClose("S2LauncherUpdater.exe")
 	FileDelete(@ScriptDir & "\S2LauncherUpdater.exe")
 
-	$url = "https://api.github.com/repos/PolluxTroy0/S2Launcher/releases/latest"
-	$file = @ScriptDir & "\s2lu"
-	$search = "browser_download_url"
-	$start = '"browser_download_url":"https://github.com/PolluxTroy0/S2Launcher/releases/download/v'
-	$end = '/S2Launcher.exe"'
+	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "update", "1") == "1" Then
+		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "update", "1")
+		$url = "https://api.github.com/repos/PolluxTroy0/S2Launcher/releases/latest"
+		$file = @ScriptDir & "\s2lu"
+		$search = "browser_download_url"
+		$start = '"browser_download_url":"https://github.com/PolluxTroy0/S2Launcher/releases/download/v'
+		$end = '/S2Launcher.exe"'
 
-	;RunWait(@ComSpec & " /c " & 'curl "' & $url & '" --output "' & $file & '"', "", @SW_HIDE)
-	INetGet($url, $file)
+		;RunWait(@ComSpec & " /c " & 'curl "' & $url & '" --output "' & $file & '"', "", @SW_HIDE)
+		INetGet($url, $file)
 
-	Local $Lines
-	$Line = "0"
-	$Result = "0"
-
-	_FileReadToArray($File, $Lines)
-
-	For $i = 1 To $Lines[0]
-		If StringInStr($Lines[$i], $Search) Then
-			$Line = $i
-			ExitLoop
-		EndIf
-	Next
-
-	If $Line <> "0" Then
-		$Line = FileReadLine($File, $i)
-		$Value = _StringBetween($Line, $start, $end)
-		If @error Then
-			$Result = "0"
-		Else
-			$Result = $Value[0]
-		EndIf
-	Else
+		Local $Lines
+		$Line = "0"
 		$Result = "0"
-	EndIf
 
-	FileDelete($file)
+		_FileReadToArray($File, $Lines)
 
-	If $Result <> "0" Then
-		$CurrentVer = FileGetVersion(@ScriptDir & "\S2Launcher.exe", $FV_FILEVERSION)
-		$Compare = _StringCompareVersions($CurrentVer, $Result)
-		If $Compare == -1 Then
-			$updatedl = MsgBox(64+4, "Sacred 2 Launcher v." & $appversion, "A newer version (" & $Result & ") of the launcher is available. Do you want to download it ?" )
-			If $updatedl == "6" Then
-				;ShellExecute("https://github.com/PolluxTroy0/S2Launcher/releases/latest/")
-				ProcessClose("S2LauncherUpdater.exe")
-				Sleep(500)
-				FileInstall("S2LauncherUpdater.exe", @ScriptDir & "\S2LauncherUpdater.exe", 1)
-				Run(@ScriptDir & "\S2LauncherUpdater.exe https://github.com/PolluxTroy0/S2Launcher/releases/download/v" & $Result & "/S2Launcher.exe S2Launcher.exe", @ScriptDir)
-				Exit
+		For $i = 1 To $Lines[0]
+			If StringInStr($Lines[$i], $Search) Then
+				$Line = $i
+				ExitLoop
+			EndIf
+		Next
+
+		If $Line <> "0" Then
+			$Line = FileReadLine($File, $i)
+			$Value = _StringBetween($Line, $start, $end)
+			If @error Then
+				$Result = "0"
+			Else
+				$Result = $Value[0]
+			EndIf
+		Else
+			$Result = "0"
+		EndIf
+
+		FileDelete($file)
+
+		If $Result <> "0" Then
+			$CurrentVer = FileGetVersion(@ScriptDir & "\S2Launcher.exe", $FV_FILEVERSION)
+			$Compare = _StringCompareVersions($CurrentVer, $Result)
+			If $Compare == -1 Then
+				$updatedl = MsgBox(64+4, "Sacred 2 Launcher v." & $appversion, "A newer version (" & $Result & ") of the launcher is available. Do you want to download it ?" )
+				If $updatedl == "6" Then
+					ProcessClose("S2LauncherUpdater.exe")
+					Sleep(500)
+					FileInstall("S2LauncherUpdater.exe", @ScriptDir & "\S2LauncherUpdater.exe", 1)
+					Run(@ScriptDir & "\S2LauncherUpdater.exe https://github.com/PolluxTroy0/S2Launcher/releases/download/v" & $Result & "/S2Launcher.exe S2Launcher.exe", @ScriptDir)
+					Exit
+				EndIf
 			EndIf
 		EndIf
 	EndIf
 EndFunc
 
+;Exit launcher
 Func _Exit()
 	FileDelete(@TempDir & "\splash.jpg")
 	Exit
 EndFunc
 
+;Exe version compare
 Func _StringCompareVersions($s_Version1, $s_Version2 = "0.0.0.0")
     SetError((StringIsDigit(StringReplace($s_Version1, ".", ""))=0) + 2 * (StringIsDigit(StringReplace($s_Version2, ".", ""))=0))
     If @error>0 Then Return 0; Ought to Return something!
@@ -467,5 +536,4 @@ Func _StringCompareVersions($s_Version1, $s_Version2 = "0.0.0.0")
     Next
 
     Return $i_Result
-
 EndFunc

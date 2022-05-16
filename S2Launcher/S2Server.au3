@@ -18,10 +18,12 @@
 #include <GuiComboBox.au3>
 #include <Inet.au3>
 
+;Variables
 $appversion = FileGetVersion(@ScriptFullPath, $FV_FILEVERSION)
 $AppName = "Sacred 2 Server Launcher v." & $appversion
 $IniFile = @ScriptDir & "\S2Server\S2Server.ini"
 
+;Search for game server executable
 If Not FileExists(@ScriptDir & "\system\s2gs.exe") Then
 	If Not FileExists(@ScriptDir & "\S2Server\system\s2gs.exe") Then
 		MsgBox(16, $AppName, "Error : Unable to find s2gs.exe ! Please start S2Server.exe from the root folder of Sacred 2.")
@@ -51,7 +53,7 @@ If $CmdLine[0] <> 0 Then
 	EndIf
 EndIf
 
-;Gui
+;Main GUI
 $Form1 = GUICreate($AppName, 458, 369, -1, -1)
 
 $Group1 = GUICtrlCreateGroup("Lobby Settings (OpenNet Only)", 232, 8, 217, 153)
@@ -262,7 +264,7 @@ $Button3 = GUICtrlCreateButton("Exit", 344, 336, 107, 25)
 
 GUISetState(@SW_SHOW)
 
-;Save settings
+;Save GUI settings function
 Func _Save()
 	If GUICtrlRead($Checkbox3) == 4 Then
 		IniWrite($IniFile, "SACRED2SRVCFG", "act_as_user", "0")
@@ -323,6 +325,7 @@ Func _Save()
 	EndIf
 EndFunc
 
+;Start server function
 Func _Start()
 	$act_as_user = IniRead($IniFile, "SACRED2SRVCFG", "act_as_user", "")
 	$autoshutdown = IniRead($IniFile, "SACRED2SRVCFG", "autoshutdown", "")
@@ -459,6 +462,7 @@ EndFunc
 
 $sCurrCombo = GUICtrlRead($Combo1)
 
+;Main loop
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
