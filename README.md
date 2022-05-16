@@ -5,7 +5,7 @@ A custom game/lobby/server launcher for Sacred 2 with some usefull features !
 You can view the ReadMe for the Game Launcher and the Server Launcher here : [View ReadMe](https://htmlpreview.github.io/?https://github.com/PolluxTroy0/S2Launcher/blob/main/ReadMe.html)
 
 ## Download
-[DarkMatters Forum](https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/  ) or [GitHub](https://github.com/PolluxTroy0/S2Launcher/releases/latest/) 
+You can download the launcher here : [GitHub](https://github.com/PolluxTroy0/S2Launcher/releases/latest/) or [DarkMatters Forum](https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/)
 
 ## Screenshots
  - Game Launcher  
