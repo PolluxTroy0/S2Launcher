@@ -7,7 +7,8 @@
 <body>
 
 <div id="menu" style="margin: auto; width: 765px; display: block; text-align: center;">
-<font face="Consolas" size="6"><pre><b>Sacred 2 Launcher - ReadMe</b></pre></font>
+<font face="Consolas" size="6"><pre><b>Sacred 2 Launcher - ReadMe</b>
+<font face="Consolas" size="3"><b><a href="https://github.com/PolluxTroy0/S2Launcher" target="_blank">https://github.com/PolluxTroy0/S2Launcher</a></b></pre></font>
 <font face="Consolas" size="4"><pre><a id="llink" href="#" onclick="showl()">Game Launcher ReadMe</a> / <a id="slink" href="#" onclick="shows()">Server Launcher ReadMe</a>
 <br/></div>
 
@@ -63,15 +64,15 @@
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● Sacred 2 Launcher & Server Launcher
     ● Author : PolluxTroy (Discord: Pollux Troy#0231)  
-    ● Sources : <a href="https://github.com/PolluxTroy0/S2Launcher">https://github.com/PolluxTroy0/S2Launcher</a>
+    ● Sources : <a href="https://github.com/PolluxTroy0/S2Launcher" target="_blank">https://github.com/PolluxTroy0/S2Launcher</a>
 
  ● Sacred 2 Lobby Emulator
     ● Author : pnxr
-    ● Sources : <a href="https://github.com/pnxr/sacred2-lobby-emulator">https://github.com/pnxr/sacred2-lobby-emulator</a>
+    ● Sources : <a href="https://github.com/pnxr/sacred2-lobby-emulator" target="_blank">https://github.com/pnxr/sacred2-lobby-emulator</a>
 
  ● JSGME Mods Manager
     ● Author : Jesen Jones
-    ● Sources : <a href="http://www.users.on.net/~jscones/software">http://www.users.on.net/~jscones/software</a>
+    ● Sources : <a href="http://www.users.on.net/~jscones/software" target="_blank">http://www.users.on.net/~jscones/software</a>
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► <b>VESRIONS HISTORY</b>                                                                ◄ ║
@@ -111,7 +112,7 @@
 ║ ► <b>REQUIREMENTS</b>                                                                    ◄ ║
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● .NET Framework 4.6.1 (for the Lobby application)
-   <a href="https://www.microsoft.com/fr-fr/download/details.aspx?id=49982">https://www.microsoft.com/fr-fr/download/details.aspx?id=49982</a>
+   <a href="https://www.microsoft.com/fr-fr/download/details.aspx?id=49982" target="_blank">https://www.microsoft.com/fr-fr/download/details.aspx?id=49982</a>
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► <b>INSTALLATION</b>                                                                    ◄ ║
@@ -159,7 +160,7 @@
       use "localhost" as the IP address.
     ● If you want someone to connect to the lobby server from the internet, he/she/it
       must use the public IP address of the server. You can use this website to
-      find it : <a href="https://www.whatismyip.com/">https://www.whatismyip.com/</a>
+      find it : <a href="https://www.whatismyip.com/" target="_blank">https://www.whatismyip.com/</a>
  ● Save the file then launch the game. Don't forget to start the server before.
 
  ■ If you set the server mode to OpenNet :
@@ -271,10 +272,10 @@
 ╚═════════════════════════════════════════════════════════════════════════════════════╝
  ● Sacred 2 Server Launcher
     ● Author : PolluxTroy (Discord: Pollux Troy#0231)  
-    ● Sources : <a href="https://github.com/PolluxTroy0/S2Launcher">https://github.com/PolluxTroy0/S2Launcher</a>
+    ● Sources : <a href="https://github.com/PolluxTroy0/S2Launcher" target="_blank">https://github.com/PolluxTroy0/S2Launcher</a>
 
  ● Sacred 2 Lobby Emulator
-    ● Sources : <a href="https://github.com/pnxr/sacred2-lobby-emulator/">https://github.com/pnxr/sacred2-lobby-emulator/<a/>
+    ● Sources : <a href="https://github.com/pnxr/sacred2-lobby-emulator/" target="_blank">https://github.com/pnxr/sacred2-lobby-emulator/<a/>
 
 ╔═════════════════════════════════════════════════════════════════════════════════════╗
 ║ ► <b>VESRIONS HISTORY</b>                                                                ◄ ║
@@ -283,25 +284,30 @@
 </pre></font></div>
  
 <script>
-var filename = location.href.split("/").slice(-1);
+var readme = location.href.split("/").slice(-1);
 var x = document.getElementById("launcher");
 var y = document.getElementById("server");
-if (filename == "S2Server-ReadMe.html") {
+
+if (readme == "S2Server-ReadMe.html") {
   x.style.display = "none";
   y.style.display = "block";
+  document.title = "Sacred 2 Server Launcher - ReadMe";
 } else {
   x.style.display = "block";
   y.style.display = "none";
-}
-
-function showl() {
-  x.style.display = "block";
-  y.style.display = "none";
+  document.title = "Sacred 2 Launcher - ReadMe";
 }
 
 function shows() {
   x.style.display = "none";
   y.style.display = "block";
+  document.title = "Sacred 2 Server Launcher - ReadMe";
+}
+
+function showl() {
+  x.style.display = "block";
+  y.style.display = "none";
+  document.title = "Sacred 2 Launcher - ReadMe";
 }
 </script>
 
