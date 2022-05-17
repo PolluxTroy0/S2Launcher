@@ -32,17 +32,18 @@ Opt("TrayMenuMode", 3)
 ;Variables
 $appversion = FileGetVersion(@ScriptFullPath, $FV_FILEVERSION)
 Global $path = @ScriptDir & "\"
+Global $inifile = @ScriptDir & "\S2Launcher.ini"
 
 ;Check for update
 _Update()
 
 ;Autostart
-If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autostart", "0") == "1" Then
+If IniRead($inifile, "S2LAUNCHER", "autostart", "0") == "1" Then
 	_Play()
 	_Wait()
 	_Exit()
 Else
-	IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autostart", "0")
+	IniWrite($inifile, "S2LAUNCHER", "autostart", "0")
 EndIf
 
 ;ReadMe
@@ -51,15 +52,16 @@ FileInstall("ReadMe.html", @ScriptDir & "\S2Launcher-ReadMe.html",1)
 ;Splashscreen
 FileInstall("splash.jpg", @TempDir & "\splash.jpg", 1)
 
-;Get Sacred 2 Infos
+;Game executable version
 $ver = FileGetVersion(@ScriptDir & "\system\sacred2.exe", $FV_FILEVERSION)
 If @error Then
 	$ver = "0.0.0.0"
 EndIf
 
+;Custom options path
 $File = @UserProfileDir & "\AppData\Local\Ascaron Entertainment\Sacred 2\optionsCustom.txt"
 
-$Search = "locale.language"
+;Game language
 If @OSArch == "X86" Then
 	$keyname = "HKEY_CURRENT_USER\Software\Ascaron Entertainment\Sacred 2"
 	$valuename = "Language"
@@ -67,9 +69,9 @@ Else
 	$keyname = "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Ascaron Entertainment\Sacred 2"
 	$valuename = "Language"
 EndIf
-$lang = _Search($File, $Search)
+$lang = _Search($File, "locale.language", $keyname, $valuename)
 
-$Search = "locale.speech"
+;Game speech language
 If @OSArch == "X86" Then
 	$keyname = "HKEY_CURRENT_USER\Software\Ascaron Entertainment\Sacred 2"
 	$valuename = "Speech"
@@ -77,9 +79,9 @@ Else
 	$keyname = "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Ascaron Entertainment\Sacred 2"
 	$valuename = "Speech"
 EndIf
-$speech = _Search($File, $Search)
+$speech = _Search($File, "locale.speech", $keyname, $valuename)
 
-$Search = "locale.movietrack"
+;Game movietrack
 If @OSArch == "X86" Then
 	$keyname = "HKEY_CURRENT_USER\Software\Ascaron Entertainment\Sacred 2"
 	$valuename = "MovieTrack"
@@ -87,14 +89,14 @@ Else
 	$keyname = "HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Ascaron Entertainment\Sacred 2"
 	$valuename = "MovieTrack"
 EndIf
-$track = _Search($File, $Search)
+$track = _Search($File, "locale.movietrack", $keyname, $valuename)
 
 ;Defining status bar infos
 Local $bar[5] = [@TAB & "v." & $ver, @TAB & "L : " & $lang, @TAB & "S : " & $speech, @TAB & "T : " & $track, "" & $path]
 Local $barsize[5] = [60, 60, 60, 40, -1]
 
 ;Main GUI
-$Form1 = GUICreate("Sacred 2 Launcher" & " v." & $appversion, 561, 379, -1, -1)
+$Form1 = GUICreate("Sacred 2 Launcher" & " v." & $appversion & "", 561, 398, -1, -1) ;379
 GUISetBkColor("0xECE3BE", $Form1)
 $Pic1 = GUICtrlCreatePic(@TempDir & "\splash.jpg", 0, 0, 561, 269)
 $Play = GUICtrlCreateButton("Play", 448, 280, 99, 65)
@@ -106,6 +108,54 @@ $skipopenal = GUICtrlCreateCheckbox("Skip OpenAl", 320, 296, 80, 17)
 $logging = GUICtrlCreateCheckbox("Logging", 320, 328, 57, 17)
 $nocpubinding = GUICtrlCreateCheckbox("No CPU Binding", 320, 280, 95, 17)
 $showserver = GUICtrlCreateCheckbox("Show Server", 320, 312, 81, 17)
+
+;Top Menu
+$MenuFile = GUICtrlCreateMenu("File")
+$MenuUpdate = GUICtrlCreateMenuItem("Check for update", $MenuFile)
+GuiCtrlSetState(-1, $GUI_DISABLE)
+$MenuSeparator1 = GUICtrlCreateMenuItem("", $MenuFile)
+$MenuExit = GUICtrlCreateMenuItem("Exit", $MenuFile)
+$MenuSettings = GUICtrlCreateMenu("Settings")
+$MenuLanguage = GUICtrlCreateMenu("Language", $MenuSettings)
+GuiCtrlSetState(-1, $GUI_DISABLE)
+$MenuItem13 = GUICtrlCreateMenuItem("German (de_DE)", $MenuLanguage)
+$MenuItem14 = GUICtrlCreateMenuItem("English (en_UK)", $MenuLanguage)
+$MenuItem25 = GUICtrlCreateMenuItem("French (fr_FR)", $MenuLanguage)
+$MenuItem26 = GUICtrlCreateMenuItem("Spanish (es_ES)", $MenuLanguage)
+$MenuItem27 = GUICtrlCreateMenuItem("Italian (it_IT)", $MenuLanguage)
+$MenuSpeech = GUICtrlCreateMenu("Speech Lang.", $MenuSettings)
+GuiCtrlSetState(-1, $GUI_DISABLE)
+$MenuItem15 = GUICtrlCreateMenuItem("German (de_DE)", $MenuSpeech)
+$MenuItem16 = GUICtrlCreateMenuItem("English (en_UK)", $MenuSpeech)
+$MenuItem22 = GUICtrlCreateMenuItem("French (fr_FR)", $MenuSpeech)
+$MenuItem23 = GUICtrlCreateMenuItem("Spanish (es_ES)", $MenuSpeech)
+$MenuItem24 = GUICtrlCreateMenuItem("Italian (it_IT)", $MenuSpeech)
+$MenuTrack = GUICtrlCreateMenu("MovieTrack", $MenuSettings)
+GuiCtrlSetState(-1, $GUI_DISABLE)
+$MenuItem17 = GUICtrlCreateMenuItem("German (5)", $MenuTrack)
+$MenuItem18 = GUICtrlCreateMenuItem("English (6)", $MenuTrack)
+$MenuItem19 = GUICtrlCreateMenuItem("French (7)", $MenuTrack)
+$MenuItem20 = GUICtrlCreateMenuItem("Spanish (8)", $MenuTrack)
+$MenuItem21 = GUICtrlCreateMenuItem("Italian (9)", $MenuTrack)
+$MenuAbout = GUICtrlCreateMenu("About")
+$MenuCreator = GUICtrlCreateMenuItem("Created by PolluxTroy", $MenuAbout)
+GuiCtrlSetState(-1, $GUI_DISABLE)
+$MenuSeparator2 = GUICtrlCreateMenuItem("", $MenuAbout)
+$MenuGitHub = GUICtrlCreateMenuItem("View sources on GitHub", $MenuAbout)
+$MenuSupport = GUICtrlCreateMenuItem("Get support on DarkMatters", $MenuAbout)
+$MenuHelp = GUICtrlCreateMenu("?")
+$MenuReadMeL = GUICtrlCreateMenuItem("Launcher ReadMe", $MenuHelp)
+$MenuReadMeS = GUICtrlCreateMenuItem("Server ReadMe", $MenuHelp)
+
+If Not FileExists(@ScriptDir & "\S2Launcher-ReadMe.html") Then
+	GUICtrlDelete($MenuReadMeL)
+EndIf
+
+If Not FileExists(@ScriptDir & "\S2Server-ReadMe.html") Then
+	GUICtrlDelete($MenuReadMeS)
+EndIf
+
+;Status Bar
 $StatusBar1 = _GUICtrlStatusBar_Create($Form1, $barsize, $bar)
 
 ;Tooltips
@@ -162,31 +212,31 @@ Else
 EndIf
 
 ;Settings Checkboxes
-If FileExists(@ScriptDir & "\S2Launcher.ini") Then
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4") == 1 Then
+If FileExists($inifile) Then
+	If IniRead($inifile, "S2LAUNCHER", "skipopenal", "4") == 1 Then
 		GUICtrlSetState($skipopenal, $GUI_CHECKED)
 	EndIf
 Else
 	GUICtrlSetState($skipopenal, $GUI_CHECKED)
 EndIf
 
-If FileExists(@ScriptDir & "\S2Launcher.ini") Then
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4") == 1 Then
+If FileExists($inifile) Then
+	If IniRead($inifile, "S2LAUNCHER", "nocpubinding", "4") == 1 Then
 		GUICtrlSetState($nocpubinding, $GUI_CHECKED)
 	EndIf
 Else
 	GUICtrlSetState($nocpubinding, $GUI_CHECKED)
 EndIf
 
-If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4") == 1 Then
+If IniRead($inifile, "S2LAUNCHER", "logging", "4") == 1 Then
 	GUICtrlSetState($logging, $GUI_CHECKED)
 EndIf
 
-If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4") == 1 Then
+If IniRead($inifile, "S2LAUNCHER", "showserver", "4") == 1 Then
 	GUICtrlSetState($showserver, $GUI_CHECKED)
 EndIf
 
-If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "4") == 1 Then
+If IniRead($inifile, "S2LAUNCHER", "autosaveonexit", "4") == 1 Then
 	GUICtrlSetState($autosaveonexit, $GUI_CHECKED)
 EndIf
 
@@ -210,25 +260,25 @@ While 1
 
 			$param = ""
 
-			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4") == 1 Then
+			If IniRead($inifile, "S2LAUNCHER", "skipopenal", "4") == 1 Then
 				$param &= " -skipopenal"
 			EndIf
 
-			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4") == 1 Then
+			If IniRead($inifile, "S2LAUNCHER", "logging", "4") == 1 Then
 				$param &= " -logging"
 			EndIf
 
-			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4") == 1 Then
+			If IniRead($inifile, "S2LAUNCHER", "nocpubinding", "4") == 1 Then
 				$param &= " -nocpubinding"
 			EndIf
 
-			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4") == 1 Then
+			If IniRead($inifile, "S2LAUNCHER", "showserver", "4") == 1 Then
 				$param &= " -showserver"
 			EndIf
 
 			Run($path & "system\sacred2.exe" & $param)
 
-			If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "0") == 1 Then
+			If IniRead($inifile, "S2LAUNCHER", "autosaveonexit", "0") == 1 Then
 				TraySetToolTip("Waiting for Sacred 2 to stop," & @CRLF & "to create a savegames backup...")
 
 				While ProcessExists("sacred2.exe")
@@ -279,25 +329,41 @@ While 1
 		Case $autosaveonexit
 			_Save()
 
+		Case $MenuExit
+			_Save()
+			_Exit()
+
+		Case $MenuGitHub
+			ShellExecute("https://github.com/PolluxTroy0/S2Launcher")
+
+		Case $MenuSupport
+			ShellExecute("https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/")
+
+		Case $MenuReadMeL
+			ShellExecute(@ScriptDir & "\S2Launcher-ReadMe.html")
+
+		Case $MenuReadMeS
+			ShellExecute(@ScriptDir & "\S2Server-ReadMe.html")
+
 	EndSwitch
 WEnd
 
 ;Play function (to start the game)
 Func _Play()
 	$param = ""
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "4") == 1 Then
+	If IniRead($inifile, "S2LAUNCHER", "skipopenal", "4") == 1 Then
 		$param &= " -skipopenal"
 	EndIf
 
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "4") == 1 Then
+	If IniRead($inifile, "S2LAUNCHER", "logging", "4") == 1 Then
 		$param &= " -logging"
 	EndIf
 
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "4") == 1 Then
+	If IniRead($inifile, "S2LAUNCHER", "nocpubinding", "4") == 1 Then
 		$param &= " -nocpubinding"
 	EndIf
 
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "4") == 1 Then
+	If IniRead($inifile, "S2LAUNCHER", "showserver", "4") == 1 Then
 		$param &= " -showserver"
 	EndIf
 
@@ -306,7 +372,7 @@ EndFunc
 
 ;Wait function (for game to sop)
 Func _Wait()
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "0") == 1 Then
+	If IniRead($inifile, "S2LAUNCHER", "autosaveonexit", "0") == 1 Then
 		TraySetToolTip("Waiting for Sacred 2 to stop," & @CRLF & "to create a savegames backup...")
 
 		While ProcessExists("sacred2.exe")
@@ -323,8 +389,7 @@ Func _Backup($auto = 0)
 	Sleep(500)
 
 	$datetime = @YEAR & @MON & @MDAY & @HOUR & @MIN & @SEC
-
-	$savefoldername = IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "savefoldername", "S2SavesBackup")
+	$savefoldername = IniRead($inifile, "S2LAUNCHER", "savefoldername", "S2SavesBackup")
 
 	If $savefoldername == "" Then
 		$savefoldername = "S2SavesBackup"
@@ -352,9 +417,7 @@ Func _Backup($auto = 0)
 	EndIf
 
 	If RegRead("HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced", "EnableBalloonTips") == 0 Then
-		;If $auto == 0 Then
 		MsgBox(64, "AutoBackup Saves", $CopyMsg)
-		;EndIf
 	Else
 		TrayTip("AutoBackup Saves", $CopyMsg, 5, $CopyIcon)
 	EndIf
@@ -363,38 +426,41 @@ Func _Backup($auto = 0)
 EndFunc
 
 ;Search github for updates
-Func _Search($File, $Search)
+Func _Search($File, $Search, $keyname, $valuename)
 	Local $Lines
 	$Line = "0"
 	$Result = "0"
 
 	_FileReadToArray($File, $Lines)
-
-	For $i = 1 To $Lines[0]
-		If StringInStr($Lines[$i], $Search) Then
-			$Line = $i
-			ExitLoop
-		EndIf
-	Next
-
-	If $Line <> "0" Then
-		Local $hFileOpen = FileOpen($File, $FO_READ)
-		If $hFileOpen = -1 Then
-			$Result = "0"
-		Else
-			$Line = FileReadLine($File, $i)
-			$Value = _StringBetween($Line, '"', '"')
-			$Result = $Value[0]
-		EndIf
-		FileClose($hFileOpen)
-	Else
+	If @error <> "0" Then
 		$Result = "0"
+	Else
+		For $i = 1 To $Lines[0]
+			If StringInStr($Lines[$i], $Search) Then
+				$Line = $i
+				ExitLoop
+			EndIf
+		Next
+
+		If $Line <> "0" Then
+			Local $hFileOpen = FileOpen($File, $FO_READ)
+			If $hFileOpen = -1 Then
+				$Result = "0"
+			Else
+				$Line = FileReadLine($File, $i)
+				$Value = _StringBetween($Line, '"', '"')
+				$Result = $Value[0]
+			EndIf
+			FileClose($hFileOpen)
+		Else
+			$Result = "0"
+		EndIf
 	EndIf
 
 	If $Result == "0" Then
 		$RegValue = RegRead($keyname, $valuename)
 		If @error <> 0 Then
-			$Result = "?"
+			$Result = "0"
 		Else
 			$Result = $RegValue
 		EndIf
@@ -405,40 +471,34 @@ EndFunc
 
 ;Save launcher settings
 Func _Save()
-	$save_skipopenal = GUICtrlRead($skipopenal)
-	$save_logging = GUICtrlRead($logging)
-	$save_nocpubinding = GUICtrlRead($nocpubinding)
-	$save_showserver = GUICtrlRead($showserver)
-	$save_autosaveonexit = GUICtrlRead($autosaveonexit)
-
-	If $save_skipopenal == "1" Then
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "1")
+	If GUICtrlRead($skipopenal) == "1" Then
+		IniWrite($inifile, "S2LAUNCHER", "skipopenal", "1")
 	Else
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "skipopenal", "0")
+		IniWrite($inifile, "S2LAUNCHER", "skipopenal", "0")
 	EndIf
 
-	If $save_logging == "1" Then
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "1")
+	If GUICtrlRead($logging) == "1" Then
+		IniWrite($inifile, "S2LAUNCHER", "logging", "1")
 	Else
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "logging", "0")
+		IniWrite($inifile, "S2LAUNCHER", "logging", "0")
 	EndIf
 
-	If $save_nocpubinding == "1" Then
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "1")
+	If GUICtrlRead($nocpubinding) == "1" Then
+		IniWrite($inifile, "S2LAUNCHER", "nocpubinding", "1")
 	Else
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "nocpubinding", "0")
+		IniWrite($inifile, "S2LAUNCHER", "nocpubinding", "0")
 	EndIf
 
-	If $save_showserver == "1" Then
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "1")
+	If GUICtrlRead($showserver) == "1" Then
+		IniWrite($inifile, "S2LAUNCHER", "showserver", "1")
 	Else
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "showserver", "0")
+		IniWrite($inifile, "S2LAUNCHER", "showserver", "0")
 	EndIf
 
-	If $save_autosaveonexit == "1" Then
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "1")
+	If GUICtrlRead($autosaveonexit) == "1" Then
+		IniWrite($inifile, "S2LAUNCHER", "autosaveonexit", "1")
 	Else
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "autosaveonexit", "0")
+		IniWrite($inifile, "S2LAUNCHER", "autosaveonexit", "0")
 	EndIf
 EndFunc
 
@@ -447,8 +507,8 @@ Func _Update()
 	ProcessClose("S2LauncherUpdater.exe")
 	FileDelete(@ScriptDir & "\S2LauncherUpdater.exe")
 
-	If IniRead(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "update", "1") == "1" Then
-		IniWrite(@ScriptDir & "\S2Launcher.ini", "S2LAUNCHER", "update", "1")
+	If IniRead($inifile, "S2LAUNCHER", "update", "1") == "1" Then
+		IniWrite($inifile, "S2LAUNCHER", "update", "1")
 		$url = "https://api.github.com/repos/PolluxTroy0/S2Launcher/releases/latest"
 		$file = @ScriptDir & "\s2lu"
 		$search = "browser_download_url"

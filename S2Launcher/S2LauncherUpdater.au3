@@ -12,26 +12,25 @@
 #include <InetConstants.au3>
 
 If $CmdLine[0] <> 0 Then
-
-	SplashTextOn("Sacred 2 Launcher Updater", "Downloading update...", 400, 50, -1, -1)
-
 	$link = $CmdLine[1]
 	$file = $CmdLine[2]
+	$path = @ScriptDir & "\"
+	$title = "Sacred 2 Launcher Updater"
+	$url = "https://github.com/PolluxTroy0/S2Launcher/releases/latest"
+	$dlmsg = "Downloading update..."
+	$error = "An error occured while downloading the update." & @CRLF & "Please download the update manually and replace " & $file & " in the game root folder."
 
-	ProcessClose("S2Launcher.exe")
+	SplashTextOn($title, $dlmsg, 400, 50, -1, -1)
+	ProcessClose($file)
 	Sleep(500)
-	FileDelete(@ScriptDir & "\S2Launcher.exe")
+	FileDelete($path & $file)
 	Sleep(500)
-	INetGet($link, @ScriptDir & "\" & $file)
+	INetGet($link, $path & $file)
 	If @error Then
-		MsgBox(16, "Sacred 2 Launcher Updater", "An error occured while downloading the launcher update." & @CRLF & "Please download the update manually and replace S2Launcher.exe in the game root folder.")
+		MsgBox(16, $title, $error)
+		ShellExecute($url)
 		Exit
 	EndIf
-
-	Run(@ScriptDir & "\" & $file)
-
-	Exit
-
-Else
+	Run($path & $file)
 	Exit
 EndIf

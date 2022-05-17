@@ -20,7 +20,7 @@
 
 ;Variables
 $appversion = FileGetVersion(@ScriptFullPath, $FV_FILEVERSION)
-$AppName = "Sacred 2 Server Launcher v." & $appversion
+$AppName = "Sacred 2 Server Launcher v." & $appversion & " - by PolluxTroy"
 $IniFile = @ScriptDir & "\S2Server\S2Server.ini"
 
 ;Search for game server executable
@@ -492,5 +492,4 @@ While 1
 		Sleep(500)
 		$sCurrCombo = GUICtrlRead($Combo1)
     EndIf
-
 WEnd
