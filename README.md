@@ -1,11 +1,24 @@
 ## Sacred 2 Launcher
 A custom game/lobby/server launcher for Sacred 2 with some usefull features !
 
-## ReadMe
-You can view the ReadMe for the Game Launcher and the Server Launcher here : [View ReadMe](https://htmlpreview.github.io/?https://github.com/PolluxTroy0/S2Launcher/blob/main/ReadMe.html)
+## Main Features
+ - Automatic savegames backup  
+The launcher can create backup of savegames when you stop playing the game.
 
-## Download
-You can download the launcher here : [GitHub](https://github.com/PolluxTroy0/S2Launcher/releases/latest/) or [DarkMatters Forum](https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/)
+ - Manual savegames backup  
+You can manually create a savegames backup.
+
+ - Simple game parameters  
+Easily select game parameters.
+	
+ - Change game language  
+Easily change the txt/voice language of the game (if installed)
+
+ - Include JSGME Mods Manager  
+You can install/start JSGME for easy mods management.
+
+ - Include Sacred 2 Server Launcher  
+Allow you to start a lobby server and a game server for LAN/Online play.
 
 ## Screenshots
  - Game Launcher  
@@ -13,16 +26,8 @@ You can download the launcher here : [GitHub](https://github.com/PolluxTroy0/S2L
  - Server Launcher  
 ![S2Launcher](https://github.com/PolluxTroy0/S2Launcher/blob/main/img/S2Server.png)
 
-## Main Features
- - Automatic savegames backup : The launcher can create backup of savegames when you stop playing the game.
-
- - Manual savegames backup : You can manually create a savegames backup.
-
- - Simple game parameters : Easily select game parameters.
-
- - Include JSGME Mods Manager : You can install/start JSGME for easy mods management.
-
- - Include Sacred 2 Server Launcher : Allow you to start a lobby server and a game server for LAN/Online play.
+## ReadMe
+You can view the ReadMe for the Game Launcher and the Server Launcher here : [View ReadMe](https://htmlpreview.github.io/?https://github.com/PolluxTroy0/S2Launcher/blob/main/ReadMe.html)
 
 ## Installation
 Copy S2Launcher.exe to the root of Sacred 2 game folder.
