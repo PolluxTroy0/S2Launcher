@@ -1,11 +1,11 @@
-#AutoIt3Wrapper_Icon=sacred2.ico
+#AutoIt3Wrapper_Icon=s2launcher.ico
 #AutoIt3Wrapper_Outfile=S2Launcher.exe
 #AutoIt3Wrapper_OutFile_Type=exe
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Sacred 2 Launcher
 #AutoIt3Wrapper_Res_ProductName=Sacred 2 Launcher
-#AutoIt3Wrapper_Res_ProductVersion=1.0.4.0
-#AutoIt3Wrapper_Res_Fileversion=1.0.4.0
+#AutoIt3Wrapper_Res_ProductVersion=1.0.5.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.5.0
 #AutoIt3Wrapper_Res_CompanyName=PolluxTroy
 #AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy
 
@@ -43,6 +43,16 @@ Global $inifile = @ScriptDir & "\S2Launcher.ini"
 ;Check for update
 _Update()
 
+;S2Server Update
+$InternalVersion = "1.0.1.0"
+$InstalledVersion = FileGetVersion($path & "S2Server.exe", $FV_FILEVERSION)
+$Compare = _StringCompareVersions($InstalledVersion, $InternalVersion)
+If $Compare == -1 Then
+	$ServerNeedUpdate = 1
+Else
+	$ServerNeedUpdate = 0
+EndIf
+
 ;Autostart
 If IniRead($inifile, "S2LAUNCHER", "autostart", "0") == "1" Then
 	_Play()
@@ -51,9 +61,6 @@ If IniRead($inifile, "S2LAUNCHER", "autostart", "0") == "1" Then
 Else
 	IniWrite($inifile, "S2LAUNCHER", "autostart", "0")
 EndIf
-
-;ReadMe
-FileInstall("ReadMe.html", @ScriptDir & "\S2Launcher-ReadMe.html",1)
 
 ;Splashscreen
 FileInstall("splash.jpg", @TempDir & "\splash.jpg", 1)
@@ -264,11 +271,11 @@ If IniRead($inifile, "S2LAUNCHER", "update", "4") == 1 Then
 	GUICtrlSetState($MenuUpdate, $GUI_CHECKED)
 EndIf
 
-If Not FileExists(@ScriptDir & "\S2Launcher-ReadMe.html") Then
+If Not FileExists(@ScriptDir & "\S2Launcher.exe") Then
 	GUICtrlDelete($MenuReadMeL)
 EndIf
 
-If Not FileExists(@ScriptDir & "\S2Server-ReadMe.html") Then
+If Not FileExists(@ScriptDir & "\S2Server.exe") Then
 	GUICtrlDelete($MenuReadMeS)
 EndIf
 
@@ -335,6 +342,10 @@ If Not FileExists($path & "JSGME.exe") Then
 	GUICtrlSetData($Mods, "Install JSGME" & @CRLF & "Mods Manager")
 Else
 	$modsinstall = 1
+EndIf
+If $ServerNeedUpdate == 1 Then
+	$serverinstall = 2
+	GUICtrlSetData($Server, "Update" & @CRLF & "Server Launcher")
 EndIf
 
 ;Settings Checkboxes
@@ -421,7 +432,18 @@ While 1
 			If $serverinstall == 0 Then
 				GuiCtrlSetState($Server, $GUI_DISABLE)
 				GuiCtrlSetData($Server, "Installing...")
-				FileInstall("S2Server.exe", $path & "S2Server.exe")
+				ProcessClose("S2Server.exe")
+				FileInstall("S2Server.exe", $path & "S2Server.exe", 1)
+				GUISetState(@SW_HIDE, $Form1)
+				_Save()
+				ShellExecute(@ScriptFullPath)
+				_Exit()
+			ElseIf $serverinstall == 2 Then
+				GuiCtrlSetState($Server, $GUI_DISABLE)
+				GuiCtrlSetData($Server, "Updating...")
+				ProcessClose("S2Server.exe")
+				FileInstall("S2Server.exe", $path & "S2Server.exe", 1)
+				Run($path & "S2Server.exe -update")
 				GUISetState(@SW_HIDE, $Form1)
 				_Save()
 				ShellExecute(@ScriptFullPath)
@@ -495,9 +517,11 @@ While 1
 			ShellExecute("https://darkmatters.org/forums/index.php?/topic/72314-sacred-2-downloads-sacred-2-gamelobbyserver-launcher/")
 
 		Case $MenuReadMeL
+			FileInstall("ReadMe.html", @ScriptDir & "\S2Launcher-ReadMe.html", 1)
 			ShellExecute(@ScriptDir & "\S2Launcher-ReadMe.html")
 
 		Case $MenuReadMeS
+			FileInstall("ReadMe.html", @ScriptDir & "\S2Server-ReadMe.html", 1)
 			ShellExecute(@ScriptDir & "\S2Server-ReadMe.html")
 
 		Case $MenuLde

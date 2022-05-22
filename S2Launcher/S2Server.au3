@@ -1,11 +1,11 @@
-#AutoIt3Wrapper_Icon=sacred2.ico
+#AutoIt3Wrapper_Icon=s2server.ico
 #AutoIt3Wrapper_Outfile=S2Server.exe
 #AutoIt3Wrapper_OutFile_Type=exe
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Sacred 2 Server Launcher
 #AutoIt3Wrapper_Res_ProductName=Sacred 2 Server Launcher
-#AutoIt3Wrapper_Res_ProductVersion=1.0.0.0
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.0
+#AutoIt3Wrapper_Res_ProductVersion=1.0.1.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
 #AutoIt3Wrapper_Res_CompanyName=PolluxTroy
 #AutoIt3Wrapper_Res_LegalCopyright=PolluxTroy
 
@@ -31,19 +31,31 @@ If Not FileExists(@ScriptDir & "\system\s2gs.exe") Then
 	EndIf
 EndIf
 
+;Install/Update
+$replace = 0
+If $CmdLine[0] <> 0 Then
+	If $CmdLine[1] == "-update" Then
+		$replace = 1
+	EndIf
+EndIf
+
 ;Install required files
 SplashTextOn($AppName, "Extracting...", 400, 50, -1, -1)
 DirCreate(@ScriptDir & "\S2Server\")
-FileInstall("BouncyCastle.Crypto.dll", @ScriptDir & "\S2Server\BouncyCastle.Crypto.dll",0)
-FileInstall("S2Library.dll", @ScriptDir & "\S2Server\S2Library.dll",0)
-FileInstall("S2Lobby.exe", @ScriptDir & "\S2Server\S2Lobby.exe",0)
-FileInstall("S2Lobby.exe.config", @ScriptDir & "\S2Server\S2Lobby.exe.config",0)
-FileInstall("System.Data.SQLite.dll", @ScriptDir & "\S2Server\System.Data.SQLite.dll",0)
-FileInstall("accounts.sqlite", @ScriptDir & "\S2Server\accounts.sqlite",0)
+FileInstall("BouncyCastle.Crypto.dll", @ScriptDir & "\S2Server\BouncyCastle.Crypto.dll", $replace)
+FileInstall("S2Library.dll", @ScriptDir & "\S2Server\S2Library.dll", $replace)
+FileInstall("S2Lobby.exe", @ScriptDir & "\S2Server\S2Lobby.exe", $replace)
+FileInstall("S2Lobby.exe.config", @ScriptDir & "\S2Server\S2Lobby.exe.config", $replace)
+FileInstall("System.Data.SQLite.dll", @ScriptDir & "\S2Server\System.Data.SQLite.dll", $replace)
+FileInstall("accounts.sqlite", @ScriptDir & "\S2Server\accounts.sqlite", 0) ;Never replace if update code
 ;FileInstall("ip.cfg", @ScriptDir & "\S2Server\ip.cfg",0) ;Contain one line : 127.0.0.1
-FileInstall("S2Firewall.cmd", @ScriptDir & "\S2Server\S2Firewall.cmd",0)
-FileInstall("ReadMe.html", @ScriptDir & "\S2Server-ReadMe.html",1)
+FileInstall("S2Firewall.cmd", @ScriptDir & "\S2Server\S2Firewall.cmd", $replace)
+FileInstall("ReadMe.html", @ScriptDir & "\S2Server-ReadMe.html", $replace)
 SplashOff()
+
+If $replace == 1 Then
+	Exit
+EndIf
 
 ;Commandline
 If $CmdLine[0] <> 0 Then
